@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">Zelevest</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="investment.html">Investments</a></li>
+                <li><a href="#">Portfolio</a></li>
+                <li><a href="#">Market</a></li>
+                <li><a href="#">Reports</a></li>
+            </ul>
+            <div class="profile-info">
+                <span class="profile-name" id="nav-username"></span>
+                <span class="wallet-balance">Wallet Balance: <span id="nav-wallet-balance">0</span> Naira</span>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="account-info">
+                <h2 id="bbl">Fund wallet</h2>
+               
+                <p> PAY WITH TRANSFER
+                </p>
+                <P>BANK NAME:PALMPAY</P>
+   <P> ACCOUNT NUMBER: <a href="">8985583208</a></P>
+   <P> ACCOUNT NAME:JUDE CHIBUZE OLUMBA</P>
+                <p><strong>Wallet Balance:</strong> <span id="wallet-balance-detail">0</span> Naira</p>
+            </div>
+            <div class="investment-section">
+                <h2 id="bbl">Deposit</h2>
+                <span id="bbl"> click the payment completed button after payment has been made from your end </span>
+                <form id="investment-form">
+                    <label for=" investment-amount" id="bbl"> select Investment Amount:</label>
+                    <select id="investment-amount" name="investment-amount" required>
+                        <option value="500">₦500</option>
+                        <option value="1000">₦1000</option>
+                        <option value="10000">₦10000</option>
+                        <option value="30000">₦30000</option>
+                    </select>
+                    <label for="account-holder-name" id="bbl">Account Holder Name:</label>
+
+                    <input type="text" id="account-holder-name" name="account-holder-name" required>
+                    <input type="text" placeholder="transaction id from your receipt">
+
+                    <button type="submit">Start Investment</button>
+                </form>
+            </div>
+            <div class="payment-completion">
+                <button id="payment-completed-button">Payment Completed</button>
+                <div id="loading-spinner" class="spinner"></div>
+                <div id="success-tick" class="success-tick">&#10004;</div>
+            </div>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize username and wallet balance
+            const username = localStorage.getItem('username');
+            let walletBalance = localStorage.getItem('walletBalance');
+            if (walletBalance === null || isNaN(walletBalance)) {
+                walletBalance = '0';
+                localStorage.setItem('walletBalance', walletBalance);
+            }
+
+            if (username) {
+                document.getElementById('username').textContent = username;
+                document.getElementById('nav-username').textContent = username;
+            }
+
+            document.getElementById('wallet-balance-detail').textContent = walletBalance;
+            document.getElementById('nav-wallet-balance').textContent = walletBalance;
+
+            document.getElementById('payment-completed-button').addEventListener('click', function() {
+                const spinner = document.getElementById('loading-spinner');
+                const successTick = document.getElementById('success-tick');
+                const investmentAmount = parseFloat(document.getElementById('investment-amount').value);
+
+                spinner.style.display = 'block';
+
+                const duration = 10000; // Set to 10 seconds for demo, change to desired duration
+
+                setTimeout(() => {
+                    spinner.style.display = 'none';
+                    successTick.style.display = 'block';
+                    walletBalance = (parseFloat(walletBalance) + investmentAmount).toString();
+                    localStorage.setItem('walletBalance', walletBalance);
+                    document.getElementById('wallet-balance-detail').textContent = walletBalance;
+                    document.getElementById('nav-wallet-balance').textContent = walletBalance;
+
+                    // Update transaction history
+                    const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
+                    transactionHistory.push(`Investment of ${investmentAmount} Naira completed`);
+                    localStorage.setItem('transactionHistory', JSON.stringify(transactionHistory));
+                }, duration); // Set duration for loading spinner
+
+                setTimeout(() => {
+                    successTick.style.display = 'none';
+                    alert('Payment completed successfully!');
+                }, duration + 2000); // Hide tick after 2 seconds
+            });
+
+            document.getElementById('investment-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const investmentAmount = parseFloat(document.getElementById('investment-amount').value);
+                const accountHolderName = document.getElementById('account-holder-name').value;
+                if (investmentAmount > parseFloat(walletBalance)) {
+                    alert('Insufficient funds in wallet!');
+                } else {
+                    walletBalance = (parseFloat(walletBalance) - investmentAmount).toFixed(2);
+                    localStorage.setItem('walletBalance', walletBalance);
+                    document.getElementById('wallet-balance-detail').textContent = walletBalance;
+                    document.getElementById('nav-wallet-balance').textContent = walletBalance;
+
+                    // Update transaction history
+                    const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
+                    transactionHistory.push(`Started investment of ${investmentAmount} Naira for ${accountHolderName}`);
+                    localStorage.setItem('transactionHistory', JSON.stringify(transactionHistory));
+
+                    alert(`Investment started for ${accountHolderName} with amount ${investmentAmount} Naira`);
+                }
+            });
+        });
+
+        function startInvestment() {
+            const amount = document.getElementById('investment-amount').value;
+            localStorage.setItem('investmentAmount', amount);
+            alert(`Investment of ${amount} started!`);
+        }
+
+        function completePayment() {
+            const spinner = document.getElementById('loading-spinner');
+            const tick = document.getElementById('tick');
+            spinner.style.display = 'block';
+
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                tick.style.display = 'block';
+
+                const investmentAmount = localStorage.getItem('investmentAmount');
+                let walletBalance = parseInt(localStorage.getItem('walletBalance')) || 0;
+                walletBalance += parseInt(investmentAmount);
+                localStorage.setItem('walletBalance', walletBalance);
+
+                // Save transaction details
+                const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+                transactions.push({
+                    type: 'Deposit',
+                    amount: investmentAmount,
+                    date: new Date().toLocaleString()
+                });
+                localStorage.setItem('transactions', JSON.stringify(transactions));
+
+                alert('Payment Completed!');
+            }, 60000); // Adjust the timeout as needed
+        }
+    </script>
+</body>
+</html>
+
+
+

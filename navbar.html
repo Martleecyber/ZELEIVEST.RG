@@ -1,0 +1,85 @@
+<header>
+    <nav class="navbar">
+        <div class="logo">Zelevest</div>
+        <ul class="nav-links">
+            <li><a href="home.html">Dashboard</a></li>
+            <li><a href="investpage.html">Investments</a></li>
+            <li><a href="#">Portfolio</a></li>
+            <li><a href="#">Market</a></li>
+            <li><a href="#">Reports</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleDropdown()">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </nav>
+    <div class="dropdown" id="dropdown-menu">
+        <div class="profile">
+            <img src="" alt="Profile Picture" class="profile-pic" id="nav-profile-pic">
+            <div class="profile-info">
+                <span class="profile-name" id="nav-username"></span>
+                <span class="wallet-balance">Wallet Balance: <span id="nav-wallet-balance">0</span> Naira</span>
+            </div>
+        </div>
+        <ul>
+            <li><a href="account-details.html">Account Details</a></li>
+            <li><a href="./transaction.html" id="transaction-history-link">Transaction History</a></li>
+            <li><a href="#">Withdrawal</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Help & Support</a></li>
+            <li><a href="./index.html" id="logout-link">Logout</a></li>
+        </ul>
+    </div>
+</header>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize username and wallet balance
+        const username = localStorage.getItem('username');
+        let walletBalance = localStorage.getItem('walletBalance') || '0';
+
+        if (username) {
+            document.getElementById('nav-username').textContent = username;
+        }
+
+        document.getElementById('nav-wallet-balance').textContent = walletBalance;
+
+        // Logout button functionality
+        document.getElementById('logout-link').addEventListener('click', function() {
+            const logoutConfirmation = confirm("Are you sure you want to logout?");
+            if (logoutConfirmation) {
+                localStorage.clear();
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Load transaction history
+        const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
+        const transactionList = document.getElementById('transaction-list');
+        transactionHistory.forEach(transaction => {
+            const listItem = document.createElement('li');
+            listItem.textContent = transaction;
+            transactionList.appendChild(listItem);
+        });
+
+        // Toggle transaction history display
+        document.getElementById('transaction-history-link').addEventListener('click', function() {
+            const transactionHistoryDiv = document.getElementById('transaction-history');
+            transactionHistoryDiv.classList.toggle('show');
+        });
+    });
+
+    function toggleDropdown() {
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        dropdownMenu.classList.toggle('show');
+    }
+</script>
+
+
+
+
+
+
+
+

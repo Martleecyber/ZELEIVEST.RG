@@ -1,0 +1,636 @@
+:root {
+    --primary-color: #ffd700; /* Change this value to your desired color */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: rgb(124, 0, 254);
+    color: #fff;
+    padding: 10px 20px;
+    position: relative;
+    z-index: 1000; /* Ensure header is on top */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5em;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger .line {
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    margin: 4px;
+    transition: all 0.3s ease;
+}
+
+.dropdown {
+    display: none;
+    background: rgb(124, 0, 254);
+    padding: 10px;
+    position: absolute;
+    top: 60px;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.dropdown.show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.profile {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.wallet-balance {
+    font-size: 1em;
+    color: var(--primary-color);
+}
+
+.dropdown ul {
+    list-style: none;
+}
+
+.dropdown ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #fff;
+}
+
+.dropdown ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+main {
+    padding: 20px;
+    margin-top: 100px; /* Add top margin to avoid obstruction from nav */
+}
+
+.account-info {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.account-info p {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
+
+/* Hamburger line animations */
+.line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.line2 {
+    opacity: 0;
+}
+
+.line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+
+/* Hamburger line animations */
+.line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.line2 {
+    opacity: 0;
+}
+
+.line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+:root {
+    --primary-color: rgb(124, 0, 254);
+    --gold-color: #ffd700;
+    --text-color: #333;
+    --background-color: #f8f9fa;
+    --border-color: #ccc;
+    --box-shadow-color: rgba(0, 0, 0, 0.1);
+    --hover-box-shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+header {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5em;
+    color: var(--gold-color);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger .line {
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    margin: 4px;
+    transition: all 0.3s ease;
+}
+
+.dropdown {
+    display: none;
+    background: var(--primary-color);
+    padding: 10px;
+    position: absolute;
+    top: 60px;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.dropdown.show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.profile {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--gold-color);
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--gold-color);
+}
+
+.wallet-balance {
+    font-size: 1em;
+    color: var(--gold-color);
+}
+
+.dropdown ul {
+    list-style: none;
+}
+
+.dropdown ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #fff;
+}
+
+.dropdown ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+main {
+    padding: 20px;
+}
+
+.investment-plans {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.plan {
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    width: 200px;
+    box-shadow: 0 2px 4px var(--box-shadow-color);
+    background: linear-gradient(145deg, var(--primary-color), var(--gold-color));
+    color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plan:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px var(--hover-box-shadow-color);
+}
+
+.coins {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.plan h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.plan p {
+    font-size: 1.1em;
+    margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
+
+/* Hamburger line animations */
+.line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.line2 {
+    opacity: 0;
+}
+
+.line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.dual-color-text {
+    font-size: 2.5em;
+    font-weight: bold;
+    background: linear-gradient(90deg, var(--primary-color) 50%, var(--gold-color) 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.container {
+    background: linear-gradient(155deg, var(--primary-color), var(--gold-color));
+    
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    animation: fadeIn 2s;
+    position: relative;
+    z-index: 1; /* Lower z-index to go behind the nav */
+}
+
+.profile-icon img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    animation: bounce 1s infinite;
+}
+
+.welcome-message h1 {
+    margin: 0;
+    color: var(--gold-color);
+    font-size: 24px;
+}
+
+.current-plan, .mining-rate {
+    margin-top: 20px;
+}
+
+.current-plan h2, .mining-rate h2 {
+    margin: 0;
+    color: var(--gold-color);
+}
+
+.current-plan p, .mining-rate p {
+    font-size: 18px;
+    color: var(--gold-color);
+}
+
+.login-container{
+    display: grid;
+    justify-content: center ;
+    align-items: center;
+   
+}
+
+#login-form{
+    display: grid;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 200px;
+}
+
+
+.BTN{
+    width: 200px;
+    height: 30px;
+    border-radius: 20px 20px 20px 20px;
+}
+
+#BTN{
+    width: 200px;
+    height: 30px;
+    border-radius: 20px 20px 20px 20px;  
+    background:  rgb(124, 0, 254);
+    color: var(--gold-color);
+}
+
+#crt{
+    color: var(--gold-color);
+}
+
+
+
+
+
+.welcome-container {
+    margin-top: 200px ;
+    text-align: center;
+}
+
+.welcome-text {
+    font-size: 3em;
+    color: var(--gold-color);
+    animation: backDown 3s ease-in-out infinite alternate;
+}
+
+@keyframes backDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile specific styles */
+@media (max-width: 768px) {
+    .welcome-text {
+        font-size: 2em;
+    }
+}
+
+.btnnn{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    gap:10px ;
+}
+
+#bts{
+    width: 300px;
+    height: 40px;
+    border-radius: 20px 20px;
+    color: goldenrod;
+    background: transparent; 
+    border: 2px solid white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.bts{
+    width: 300px;
+    height: 40px;
+    border-radius: 20px 20px;
+    background: goldenrod;
+    color: #f8f9fa;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+
+
+}
+
+#btss{
+    color: goldenrod;
+    text-decoration: none;
+}
+
+#purchase{
+    border-radius: 10px 10px ;
+    height: 30px;
+    color: var(--gold-color);
+    background:  rgb(124, 0, 254);
+}
+
+
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.account-info h2, .investment-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.account-info p, .investment-section p {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="number"], input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: rgb(124, 0, 254);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(100, 0, 200);
+}
+
+.payment-completion {
+    margin-top: 20px;
+}
+
+.spinner {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid rgb(124, 0, 254);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-top: 10px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.success-tick {
+    display: none;
+    font-size: 2em;
+    color: green;
+    margin-top: 10px;
+}
+
+#cur{
+    color: var(--gold-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#bbl{
+    color: var(--gold-color);
+}
+
+.account-info{
+    background: linear-gradient(145deg, var(--primary-color), var(--gold-color));
+}
