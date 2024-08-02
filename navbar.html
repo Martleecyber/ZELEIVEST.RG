@@ -4,7 +4,7 @@
         <ul class="nav-links">
             <li><a href="home.html">Dashboard</a></li>
             <li><a href="investpage.html">Investments</a></li>
-            <li><a href="investpage.html">Fund Wallet</a></li> <!-- Added Fund Wallet option -->
+            <li><a href="investpage.html">Fund Wallet</a></li>
             <li><a href="#">Portfolio</a></li>
             <li><a href="#">Market</a></li>
             <li><a href="#">Reports</a></li>
@@ -27,8 +27,6 @@
             <li><a href="account-details.html">Account Details</a></li>
             <li><a href="./transaction.html" id="transaction-history-link">Transaction History</a></li>
             <li><a href="./withdraw.html">Withdrawal</a></li>
-                        <li><a href="investpage.html">Fund Wallet</a></li> <!-- Added Fund Wallet option -->
-
             <li><a href="#">Settings</a></li>
             <li><a href="#">Help & Support</a></li>
             <li><a href="./index.html" id="logout-link">Logout</a></li>
@@ -42,6 +40,7 @@
         function updateWalletBalance() {
             const walletBalance = localStorage.getItem('walletBalance') || '500';
             document.getElementById('nav-wallet-balance').textContent = `₦${walletBalance}`;
+            console.log('Wallet Balance Updated:', walletBalance); // Debug log
             const walletBalanceDetail = document.getElementById('wallet-balance-detail');
             if (walletBalanceDetail) {
                 walletBalanceDetail.textContent = `₦${walletBalance}`;
@@ -56,12 +55,18 @@
                 localStorage.setItem('walletBalance', walletBalance.toString());
                 updateWalletBalance();
             }
+            console.log('Wallet Balance Incremented:', walletBalance); // Debug log
         }
 
         // Initialize username and wallet balance
         const username = localStorage.getItem('username');
         if (username) {
             document.getElementById('nav-username').textContent = username;
+        }
+
+        // Set wallet balance to 500 if not already set
+        if (!localStorage.getItem('walletBalance')) {
+            localStorage.setItem('walletBalance', '500');
         }
 
         // Update wallet balance on page load
@@ -112,6 +117,7 @@
         dropdownMenu.classList.toggle('show');
     }
 </script>
+
 
 
 
