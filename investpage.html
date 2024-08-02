@@ -5,13 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Investment Page</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #8000ff, #ff0066);
+            color: #fff;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .account-info {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #af4ca7;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .loading-spinner {
+            display: none;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #fff;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-top: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .tick {
+            display: none;
+            font-size: 3em;
+            color: #4caf50;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="logo">Zelevest</div>
             <ul class="nav-links">
-                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="home.html">Dashboard</a></li>
                 <li><a href="investment.html">Investments</a></li>
                 <li><a href="#">Portfolio</a></li>
                 <li><a href="#">Market</a></li>
@@ -27,19 +96,17 @@
         <div class="container">
             <div class="account-info">
                 <h2 id="bbl">Fund wallet</h2>
-               
-                <p> PAY WITH TRANSFER
-                </p>
-                <P>BANK NAME:PALMPAY</P>
-   <P> ACCOUNT NUMBER: <a href="">8985583208</a></P>
-   <P> ACCOUNT NAME:JUDE CHIBUZE OLUMBA</P>
+                <p> PAY WITH TRANSFER</p>
+                <p>BANK NAME: PALMPAY</p>
+                <p>ACCOUNT NUMBER: <a href="#">8985583208</a></p>
+                <p>ACCOUNT NAME: JUDE CHIBUZE OLUMBA</p>
                 <p><strong>Wallet Balance:</strong> <span id="wallet-balance-detail">0</span> Naira</p>
             </div>
             <div class="investment-section">
                 <h2 id="bbl">Deposit</h2>
-                <span id="bbl"> click the payment completed button after payment has been made from your end </span>
+                <span id="bbl">Click the payment completed button after payment has been made from your end</span>
                 <form id="investment-form">
-                    <label for=" investment-amount" id="bbl"> select Investment Amount:</label>
+                    <label for="investment-amount" id="bbl">Select Investment Amount:</label>
                     <select id="investment-amount" name="investment-amount" required>
                         <option value="500">₦500</option>
                         <option value="1000">₦1000</option>
@@ -47,10 +114,8 @@
                         <option value="30000">₦30000</option>
                     </select>
                     <label for="account-holder-name" id="bbl">Account Holder Name:</label>
-
                     <input type="text" id="account-holder-name" name="account-holder-name" required>
-                    <input type="text" placeholder="transaction id from your receipt">
-
+                    <input type="text" placeholder="Transaction ID from your receipt" required>
                     <button type="submit">Start Investment</button>
                 </form>
             </div>
@@ -62,8 +127,7 @@
         </div>
     </main>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize username and wallet balance
+      document.addEventListener('DOMContentLoaded', function() {
             const username = localStorage.getItem('username');
             let walletBalance = localStorage.getItem('walletBalance');
             if (walletBalance === null || isNaN(walletBalance)) {
@@ -72,7 +136,6 @@
             }
 
             if (username) {
-                document.getElementById('username').textContent = username;
                 document.getElementById('nav-username').textContent = username;
             }
 
@@ -86,8 +149,6 @@
 
                 spinner.style.display = 'block';
 
-                const duration = 10000; // Set to 10 seconds for demo, change to desired duration
-
                 setTimeout(() => {
                     spinner.style.display = 'none';
                     successTick.style.display = 'block';
@@ -96,75 +157,67 @@
                     document.getElementById('wallet-balance-detail').textContent = walletBalance;
                     document.getElementById('nav-wallet-balance').textContent = walletBalance;
 
-                    // Update transaction history
                     const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
                     transactionHistory.push(`Investment of ${investmentAmount} Naira completed`);
                     localStorage.setItem('transactionHistory', JSON.stringify(transactionHistory));
-                }, duration); // Set duration for loading spinner
+                }, 1000);
 
                 setTimeout(() => {
                     successTick.style.display = 'none';
                     alert('Payment completed successfully!');
-                }, duration + 2000); // Hide tick after 2 seconds
+                }, 2000);
             });
 
+    
+                setTimeout(() => {
+                    successTick.style.display = 'none';
+                }, duration + 2000); // Hide tick after 2 seconds
+            });
+    
             document.getElementById('investment-form').addEventListener('submit', function(event) {
                 event.preventDefault();
                 const investmentAmount = parseFloat(document.getElementById('investment-amount').value);
                 const accountHolderName = document.getElementById('account-holder-name').value;
-                if (investmentAmount > parseFloat(walletBalance)) {
+                let walletBalance = parseFloat(localStorage.getItem('walletBalance')) || 0;
+                if (investmentAmount > walletBalance) {
                     alert('Insufficient funds in wallet!');
                 } else {
-                    walletBalance = (parseFloat(walletBalance) - investmentAmount).toFixed(2);
+                    walletBalance -= investmentAmount;
                     localStorage.setItem('walletBalance', walletBalance);
-                    document.getElementById('wallet-balance-detail').textContent = walletBalance;
-                    document.getElementById('nav-wallet-balance').textContent = walletBalance;
-
+                    
+                    // Update the wallet balance in the UI
+                    updateWalletBalance();
+    
                     // Update transaction history
                     const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
                     transactionHistory.push(`Started investment of ${investmentAmount} Naira for ${accountHolderName}`);
                     localStorage.setItem('transactionHistory', JSON.stringify(transactionHistory));
-
+    
                     alert(`Investment started for ${accountHolderName} with amount ${investmentAmount} Naira`);
                 }
             });
-        });
-
-        function startInvestment() {
-            const amount = document.getElementById('investment-amount').value;
-            localStorage.setItem('investmentAmount', amount);
-            alert(`Investment of ${amount} started!`);
+        
+    
+        function updateWalletBalance() {
+            const walletBalance = localStorage.getItem('walletBalance') || '0';
+            document.getElementById('nav-wallet-balance').textContent = walletBalance;
+            const walletBalanceDetail = document.getElementById('wallet-balance-detail');
+            if (walletBalanceDetail) {
+                walletBalanceDetail.textContent = walletBalance;
+            }
         }
-
-        function completePayment() {
-            const spinner = document.getElementById('loading-spinner');
-            const tick = document.getElementById('tick');
-            spinner.style.display = 'block';
-
-            setTimeout(() => {
-                spinner.style.display = 'none';
-                tick.style.display = 'block';
-
-                const investmentAmount = localStorage.getItem('investmentAmount');
-                let walletBalance = parseInt(localStorage.getItem('walletBalance')) || 0;
-                walletBalance += parseInt(investmentAmount);
-                localStorage.setItem('walletBalance', walletBalance);
-
-                // Save transaction details
-                const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-                transactions.push({
-                    type: 'Deposit',
-                    amount: investmentAmount,
-                    date: new Date().toLocaleString()
-                });
-                localStorage.setItem('transactions', JSON.stringify(transactions));
-
-                alert('Payment Completed!');
-            }, 60000); // Adjust the timeout as needed
+    
+        function toggleDropdown() {
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            dropdownMenu.classList.toggle('show');
         }
     </script>
+    
+    <script src="./navbar.js"></script>
 </body>
 </html>
+
+
 
 
 
