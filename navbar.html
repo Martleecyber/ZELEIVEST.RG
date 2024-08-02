@@ -37,27 +37,19 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Function to update wallet balance on the page
         function updateWalletBalance() {
-            const walletBalance = localStorage.getItem('walletBalance') || '0'; // Start from 1000 Naira
+            const walletBalance = localStorage.getItem('walletBalance') || '0';
             document.getElementById('nav-wallet-balance').textContent = walletBalance;
+            const walletBalanceDetail = document.getElementById('wallet-balance-detail');
+            if (walletBalanceDetail) {
+                walletBalanceDetail.textContent = walletBalance;
+            }
         }
-  document.getElementById('wallet-balance-detail').textContent = walletBalance;
-            document.getElementById('nav-wallet-balance').textContent = walletBalance;
-         setTimeout(() => {
-                    spinner.style.display = 'none';
-                    successTick.style.display = 'block';
-                    walletBalance = (parseFloat(walletBalance) + investmentAmount).toString();
-                    localStorage.setItem('walletBalance', walletBalance);
-                    document.getElementById('wallet-balance-detail').textContent = walletBalance;
-                    document.getElementById('nav-wallet-balance').textContent = walletBalance;
 
-                    const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
-                    transactionHistory.push(`Investment of ${investmentAmount} Naira completed`);
-                    localStorage.setItem('transactionHistory', JSON.stringify(transactionHistory));
-        // Function to increment wallet balance by 100 Naira every hour
+        // Function to increment wallet balance by 1 Naira every minute
         function incrementWalletBalance() {
-            let walletBalance = parseInt(localStorage.getItem('walletBalance') || '1000', 10);
+            let walletBalance = parseInt(localStorage.getItem('walletBalance') || '0', 10);
             if (walletBalance < 3400) {
-                walletBalance += 100;
+                walletBalance += 1;
                 localStorage.setItem('walletBalance', walletBalance.toString());
                 updateWalletBalance();
             }
@@ -72,8 +64,8 @@
         // Update wallet balance on page load
         updateWalletBalance();
 
-        // Set interval to increment wallet balance every hour (3600000 milliseconds)
-        setInterval(incrementWalletBalance, 3600000);
+        // Set interval to increment wallet balance every minute (60000 milliseconds)
+        setInterval(incrementWalletBalance, 60000);
 
         // Logout button functionality
         document.getElementById('logout-link').addEventListener('click', function() {
@@ -84,24 +76,31 @@
             }
         });
 
-        // Load transaction history
-        const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
-        const transactionList = document.getElementById('transaction-list');
-        if (transactionList) {
-            transactionHistory.forEach(transaction => {
-                const listItem = document.createElement('li');
-                listItem.textContent = transaction;
-                transactionList.appendChild(listItem);
-            });
-        }
+        // Payment completed button functionality
+        document.getElementById('payment-completed-button').addEventListener('click', function() {
+            const spinner = document.getElementById('loading-spinner');
+            const successTick = document.getElementById('success-tick');
+            const investmentAmount = parseFloat(document.getElementById('investment-amount').value);
 
-        // Toggle transaction history display
-        document.getElementById('transaction-history-link').addEventListener('click', function(event) {
-            event.preventDefault();
-            const transactionHistoryDiv = document.getElementById('transaction-history');
-            if (transactionHistoryDiv) {
-                transactionHistoryDiv.classList.toggle('show');
-            }
+            spinner.style.display = 'block';
+
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                successTick.style.display = 'block';
+                let walletBalance = parseFloat(localStorage.getItem('walletBalance')) || 0;
+                walletBalance += investmentAmount;
+                localStorage.setItem('walletBalance', walletBalance.toString());
+                updateWalletBalance();
+
+                const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
+                transactionHistory.push(`Investment of ${investmentAmount} Naira completed`);
+                localStorage.setItem('transactionHistory', JSON.stringify(transactionHistory));
+
+                setTimeout(() => {
+                    successTick.style.display = 'none';
+                    alert('Payment completed successfully!');
+                }, 2000);
+            }, 1000);
         });
     });
 
@@ -110,3 +109,4 @@
         dropdownMenu.classList.toggle('show');
     }
 </script>
+
