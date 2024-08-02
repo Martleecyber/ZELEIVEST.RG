@@ -1,3 +1,4 @@
+
 <header>
     <nav class="navbar">
         <div class="logo">Zelevest</div>
@@ -19,7 +20,7 @@
             <img src="" alt="Profile Picture" class="profile-pic" id="nav-profile-pic">
             <div class="profile-info">
                 <span class="profile-name" id="nav-username"></span>
-                <span class="wallet-balance">Wallet Balance: <span id="nav-wallet-balance">0</span> Naira</span>
+                <span class="wallet-balance">Wallet Balance: <span id="nav-wallet-balance">1000</span> Naira</span>
             </div>
         </div>
         <ul>
@@ -35,15 +36,33 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Function to update wallet balance on the page
+        function updateWalletBalance() {
+            const walletBalance = localStorage.getItem('walletBalance') || '1000'; // Start from 1000 Naira
+            document.getElementById('nav-wallet-balance').textContent = walletBalance;
+        }
+
+        // Function to increment wallet balance by 1 Naira every 30 seconds
+        function incrementWalletBalance() {
+            let walletBalance = parseInt(localStorage.getItem('walletBalance') || '1000', 1);
+            if (walletBalance < 37000) {
+                walletBalance += 1;
+                localStorage.setItem('walletBalance', walletBalance.toString());
+                updateWalletBalance();
+            }
+        }
+
         // Initialize username and wallet balance
         const username = localStorage.getItem('username');
-        let walletBalance = localStorage.getItem('walletBalance') || '0';
-
         if (username) {
             document.getElementById('nav-username').textContent = username;
         }
 
-        document.getElementById('nav-wallet-balance').textContent = walletBalance;
+        // Update wallet balance on page load
+        updateWalletBalance();
+
+        // Set interval to increment wallet balance every 30 seconds
+        setInterval(incrementWalletBalance, 20000);
 
         // Logout button functionality
         document.getElementById('logout-link').addEventListener('click', function() {
@@ -57,16 +76,21 @@
         // Load transaction history
         const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
         const transactionList = document.getElementById('transaction-list');
-        transactionHistory.forEach(transaction => {
-            const listItem = document.createElement('li');
-            listItem.textContent = transaction;
-            transactionList.appendChild(listItem);
-        });
+        if (transactionList) {
+            transactionHistory.forEach(transaction => {
+                const listItem = document.createElement('li');
+                listItem.textContent = transaction;
+                transactionList.appendChild(listItem);
+            });
+        }
 
         // Toggle transaction history display
-        document.getElementById('transaction-history-link').addEventListener('click', function() {
+        document.getElementById('transaction-history-link').addEventListener('click', function(event) {
+            event.preventDefault();
             const transactionHistoryDiv = document.getElementById('transaction-history');
-            transactionHistoryDiv.classList.toggle('show');
+            if (transactionHistoryDiv) {
+                transactionHistoryDiv.classList.toggle('show');
+            }
         });
     });
 
@@ -75,6 +99,7 @@
         dropdownMenu.classList.toggle('show');
     }
 </script>
+
 
 
 
