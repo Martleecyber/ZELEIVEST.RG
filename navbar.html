@@ -40,7 +40,8 @@
             const walletBalance = localStorage.getItem('walletBalance') || '1000'; // Start from 1000 Naira
             document.getElementById('nav-wallet-balance').textContent = walletBalance;
         }
-
+  document.getElementById('wallet-balance-detail').textContent = walletBalance;
+            document.getElementById('nav-wallet-balance').textContent = walletBalance;
         // Function to increment wallet balance by 100 Naira every hour
         function incrementWalletBalance() {
             let walletBalance = parseInt(localStorage.getItem('walletBalance') || '1000', 10);
