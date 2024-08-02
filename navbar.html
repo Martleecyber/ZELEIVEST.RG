@@ -20,15 +20,15 @@
             <img src="" alt="Profile Picture" class="profile-pic" id="nav-profile-pic">
             <div class="profile-info">
                 <span class="profile-name" id="nav-username"></span>
-                <span class="wallet-balance">Wallet Balance: <span id="nav-wallet-balance">0</span> Naira</span>
+                <span class="wallet-balance">Wallet Balance: <span id="nav-wallet-balance">₦0</span></span>
             </div>
         </div>
         <ul>
             <li><a href="account-details.html">Account Details</a></li>
-            <li><a href="./transaction.html" id="transaction-history-link">Transaction History</a></li>
-            <li><a href="./withdraw.html">Withdrawal</a></li>
                         <li><a href="investpage.html">Fund Wallet</a></li> <!-- Added Fund Wallet option -->
 
+            <li><a href="./transaction.html" id="transaction-history-link">Transaction History</a></li>
+            <li><a href="./withdraw.html">Withdrawal</a></li>
             <li><a href="#">Settings</a></li>
             <li><a href="#">Help & Support</a></li>
             <li><a href="./index.html" id="logout-link">Logout</a></li>
@@ -40,17 +40,17 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Function to update wallet balance on the page
         function updateWalletBalance() {
-            const walletBalance = localStorage.getItem('walletBalance') || '0';
-            document.getElementById('nav-wallet-balance').textContent = walletBalance;
+            const walletBalance = localStorage.getItem('walletBalance') || '500';
+            document.getElementById('nav-wallet-balance').textContent = `₦${walletBalance}`;
             const walletBalanceDetail = document.getElementById('wallet-balance-detail');
             if (walletBalanceDetail) {
-                walletBalanceDetail.textContent = walletBalance;
+                walletBalanceDetail.textContent = `₦${walletBalance}`;
             }
         }
 
-        // Function to increment wallet balance by 1 Naira every minute
+        // Function to increment wallet balance by 1 Naira every second
         function incrementWalletBalance() {
-            let walletBalance = parseInt(localStorage.getItem('walletBalance') || '0', 10);
+            let walletBalance = parseInt(localStorage.getItem('walletBalance') || '500', 10);
             if (walletBalance < 3400) {
                 walletBalance += 1;
                 localStorage.setItem('walletBalance', walletBalance.toString());
@@ -67,8 +67,8 @@
         // Update wallet balance on page load
         updateWalletBalance();
 
-        // Set interval to increment wallet balance every minute (60000 milliseconds)
-        setInterval(incrementWalletBalance, 60000);
+        // Set interval to increment wallet balance every second (1000 milliseconds)
+        setInterval(incrementWalletBalance, 1000);
 
         // Logout button functionality
         document.getElementById('logout-link').addEventListener('click', function() {
@@ -96,7 +96,7 @@
                 updateWalletBalance();
 
                 const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
-                transactionHistory.push(`Investment of ${investmentAmount} Naira completed`);
+                transactionHistory.push(`Investment of ₦${investmentAmount} completed`);
                 localStorage.setItem('transactionHistory', JSON.stringify(transactionHistory));
 
                 setTimeout(() => {
@@ -112,5 +112,6 @@
         dropdownMenu.classList.toggle('show');
     }
 </script>
+
 
 
