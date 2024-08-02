@@ -210,7 +210,33 @@
         function toggleDropdown() {
             const dropdownMenu = document.getElementById('dropdown-menu');
             dropdownMenu.classList.toggle('show');
+            
         }
+
+        document.getElementById('investment-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const investmentAmount = parseFloat(document.getElementById('investment-amount').value);
+    const accountHolderName = document.getElementById('account-holder-name').value;
+    let walletBalance = parseFloat(localStorage.getItem('walletBalance')) || 0;
+    if (investmentAmount > walletBalance) {
+        alert('Insufficient funds in wallet!');
+    } else {
+        walletBalance -= investmentAmount;
+        localStorage.setItem('walletBalance', walletBalance);
+        
+        // Update the wallet balance in the UI
+        updateWalletBalance();
+
+        const { date, time } = getNigerianDateTime();
+        // Update transaction history
+        const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
+        transactionHistory.push({ date, time, description: `Started investment of ${investmentAmount} Naira for ${accountHolderName}` });
+        localStorage.setItem('transactionHistory', JSON.stringify(transactionHistory));
+
+        alert(`Investment started for ${accountHolderName} with amount ${investmentAmount} Naira`);
+    }
+});
+
     </script>
     
     <script src="./navbar.js"></script>
