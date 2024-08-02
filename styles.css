@@ -713,3 +713,38 @@ button:hover {
     background-color: darkviolet;
 }
 
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.about-container, .contact-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.about-container h1, .contact-container h2 {
+    color: goldenrod;
+}
+
+.about-container p, .contact-container p, .contact-container a {
+    color: goldenrod;
+}
+
+.contact-container a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-container a:hover {
+    text-decoration: underline;
+}
+
+
