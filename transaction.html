@@ -23,52 +23,101 @@
             text-align: center;
         }
 
-        .account-info {
+        table {
+            width: 80%;
+            max-width: 800px;
+            margin-top: 20px;
+            border-collapse: collapse;
             background-color: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 500px;
-            margin-bottom: 20px;
         }
 
-        .transaction-list {
-            list-style: none;
-            padding: 0;
-            width: 100%;
-        }
-
-        .transaction-list li {
-            background: rgba(255, 255, 255, 0.1);
+        th, td {
             padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
+            border: 1px solid #fff;
+        }
+
+        th {
+            background-color: rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="account-info">
+    <header>
+        <nav class="navbar">
+            <div class="logo">Zelevest</div>
+            <ul class="nav-links">
+                <li><a href="home.html">Dashboard</a></li>
+                <li><a href="investment.html">Investments</a></li>
+                <li><a href="#">Portfolio</a></li>
+                <li><a href="#">Market</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="transaction.html">Transaction History</a></li>
+            </ul>
+            <div class="profile-info">
+                <span class="profile-name" id="nav-username"></span>
+                <span class="wallet-balance">Wallet Balance: <span id="nav-wallet-balance">0</span> Naira</span>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
             <h2>Transaction History</h2>
-            <ul class="transaction-list" id="transaction-list"></ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Transaction</th>
+                    </tr>
+                </thead>
+                <tbody id="transaction-history-body">
+                </tbody>
+            </table>
         </div>
-    </div>
+    </main>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-            const transactionList = document.getElementById('transaction-list');
+            const username = localStorage.getItem('username');
+            const walletBalance = localStorage.getItem('walletBalance') || '0';
+            const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
 
-            transactions.forEach(transaction => {
-                const li = document.createElement('li');
-                li.textContent = `${transaction.type} of ₦${transaction.amount} on ${transaction.date}`;
-                transactionList.appendChild(li);
+            if (username) {
+                document.getElementById('nav-username').textContent = username;
+            }
+
+            document.getElementById('nav-wallet-balance').textContent = walletBalance;
+
+            const transactionHistoryBody = document.getElementById('transaction-history-body');
+            transactionHistory.forEach(transaction => {
+                const row = document.createElement('tr');
+
+                const dateCell = document.createElement('td');
+                dateCell.textContent = transaction.date;
+                row.appendChild(dateCell);
+
+                const timeCell = document.createElement('td');
+                timeCell.textContent = transaction.time;
+                row.appendChild(timeCell);
+
+                const transactionCell = document.createElement('td');
+                transactionCell.textContent = transaction.description;
+                row.appendChild(transactionCell);
+
+                transactionHistoryBody.appendChild(row);
             });
         });
+
+        function getNigerianDateTime() {
+            const options = { timeZone: 'Africa/Lagos', hour12: true };
+            const formatter = new Intl.DateTimeFormat('en-GB', options);
+            const parts = formatter.formatToParts(new Date());
+            const date = parts.filter(part => part.type !== 'literal').map(part => part.value).slice(0, 3).join('-');
+            const time = parts.filter(part => part.type !== 'literal').map(part => part.value).slice(3).join(':');
+            return { date, time };
+        }
     </script>
 </body>
 </html>
