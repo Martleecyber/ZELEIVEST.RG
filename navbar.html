@@ -1,4 +1,3 @@
-
 <header>
     <nav class="navbar">
         <div class="logo">Zelevest</div>
@@ -42,11 +41,11 @@
             document.getElementById('nav-wallet-balance').textContent = walletBalance;
         }
 
-        // Function to increment wallet balance by 1 Naira every 30 seconds
+        // Function to increment wallet balance by 100 Naira every hour
         function incrementWalletBalance() {
-            let walletBalance = parseInt(localStorage.getItem('walletBalance') || '1000', 1);
+            let walletBalance = parseInt(localStorage.getItem('walletBalance') || '1000', 10);
             if (walletBalance < 37000) {
-                walletBalance += 1;
+                walletBalance += 100;
                 localStorage.setItem('walletBalance', walletBalance.toString());
                 updateWalletBalance();
             }
@@ -61,8 +60,8 @@
         // Update wallet balance on page load
         updateWalletBalance();
 
-        // Set interval to increment wallet balance every 30 seconds
-        setInterval(incrementWalletBalance, 20000);
+        // Set interval to increment wallet balance every hour (3600000 milliseconds)
+        setInterval(incrementWalletBalance, 3600000);
 
         // Logout button functionality
         document.getElementById('logout-link').addEventListener('click', function() {
@@ -99,8 +98,6 @@
         dropdownMenu.classList.toggle('show');
     }
 </script>
-
-
 
 
 
