@@ -34,12 +34,12 @@
 </header>
 
 <script>
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     // Function to update wallet balance on the page
-    //     function updateWalletBalance() {
-    //         const walletBalance = localStorage.getItem('walletBalance') || '0'; // Start from 1000 Naira
-    //         document.getElementById('nav-wallet-balance').textContent = walletBalance;
-    //     }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to update wallet balance on the page
+        function updateWalletBalance() {
+            const walletBalance = localStorage.getItem('walletBalance') || '0'; // Start from 1000 Naira
+            document.getElementById('nav-wallet-balance').textContent = walletBalance;
+        }
   document.getElementById('wallet-balance-detail').textContent = walletBalance;
             document.getElementById('nav-wallet-balance').textContent = walletBalance;
          setTimeout(() => {
