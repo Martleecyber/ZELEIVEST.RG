@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Initial mining rate
-    let miningRate = 10; // Starting rate in Naira
+    let miningRate = 1; // Starting rate in Naira
     let increment = 0.01; // Increment rate in Naira per second
 
     // Update mining rate every second
