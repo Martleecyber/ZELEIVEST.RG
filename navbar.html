@@ -20,8 +20,7 @@
             <img src="" alt="Profile Picture" class="profile-pic" id="nav-profile-pic">
             <div class="profile-info">
                 <span class="profile-name" id="nav-username"></span>
-                <span class="wallet-balance">Wallet Balance: <span id="nav-wallet-balance">₦500</span></span>
-            </div>
+LLLLL            </div>
         </div>
         <ul>
             <li><a href="account-details.html">Account Details</a></li>
@@ -116,6 +115,45 @@
         const dropdownMenu = document.getElementById('dropdown-menu');
         dropdownMenu.classList.toggle('show');
     }
+     document.addEventListener('DOMContentLoaded', function() {
+            const username = localStorage.getItem('username');
+            const walletBalance = localStorage.getItem('walletBalance') || '0';
+            const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
+
+            if (username) {
+                document.getElementById('nav-username').textContent = username;
+            }
+
+            document.getElementById('nav-wallet-balance').textContent = walletBalance;
+
+            const transactionHistoryBody = document.getElementById('transaction-history-body');
+            transactionHistory.forEach(transaction => {
+                const row = document.createElement('tr');
+
+                const dateCell = document.createElement('td');
+                dateCell.textContent = transaction.date;
+                row.appendChild(dateCell);
+
+                const timeCell = document.createElement('td');
+                timeCell.textContent = transaction.time;
+                row.appendChild(timeCell);
+
+                const transactionCell = document.createElement('td');
+                transactionCell.textContent = transaction.description;
+                row.appendChild(transactionCell);
+
+                transactionHistoryBody.appendChild(row);
+            });
+        });
+
+        function getNigerianDateTime() {
+            const options = { timeZone: 'Africa/Lagos', hour12: true };
+            const formatter = new Intl.DateTimeFormat('en-GB', options);
+            const parts = formatter.formatToParts(new Date());
+            const date = parts.filter(part => part.type !== 'literal').map(part => part.value).slice(0, 3).join('-');
+            const time = parts.filter(part => part.type !== 'literal').map(part => part.value).slice(3).join(':');
+            return { date, time };
+        }
 </script>
 
 
