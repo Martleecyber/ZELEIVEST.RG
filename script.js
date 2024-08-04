@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('wallet-balance').textContent = `₦${walletBalance}`;
     }
 
-    // Function to increment wallet balance by 1 Naira every second
+    // Function to increment wallet balance by 100 Naira every hour
     function incrementWalletBalance() {
         let walletBalance = parseInt(localStorage.getItem('walletBalance') || '500', 10);
         if (walletBalance < 3400) {
-            walletBalance += 1;
+            walletBalance += 100;
             localStorage.setItem('walletBalance', walletBalance.toString());
             updateWalletBalance();
         }
@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update wallet balance on page load
     updateWalletBalance();
 
-    // Set interval to increment wallet balance every second (1000 milliseconds)
-    setInterval(incrementWalletBalance, 1000);
+    // Set interval to increment wallet balance every hour (3600000 milliseconds)
+    setInterval(incrementWalletBalance, 3600000);
 
     // Harvest profit button functionality
     document.getElementById('harvest-profit').addEventListener('click', function() {
@@ -67,3 +67,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
