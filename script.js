@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to update wallet balance on the page
     function updateWalletBalance() {
-        const walletBalance = localStorage.getItem('walletBalance') || '500';
+        const walletBalance = localStorage.getItem('walletBalance') || '100';
         document.getElementById('wallet-balance').textContent = `₦${walletBalance}`;
     }
 
