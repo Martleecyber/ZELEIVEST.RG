@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to increment wallet balance by 100 Naira every hour
     function incrementWalletBalance() {
-        let walletBalance = parseInt(localStorage.getItem('walletBalance') || '500', 10);
+        let walletBalance = parseInt(localStorage.getItem('walletBalance') || '500', 100);
         if (walletBalance < 3400) {
             walletBalance += 100;
             localStorage.setItem('walletBalance', walletBalance.toString());
