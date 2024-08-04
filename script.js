@@ -40,13 +40,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         setTimeout(() => {
             document.body.removeChild(spinner);
-            let walletBalance = parseInt(localStorage.getItem('walletBalance') || '500', 10);
+            let walletBalance = parseInt(localStorage.getItem('walletBalance') || '10', 10);
             const profit = 500; // Example profit value
             walletBalance += profit;
             localStorage.setItem('walletBalance', walletBalance.toString());
             updateWalletBalance();
             alert(`Profit of ₦${profit} has been added to your wallet.`);
-        }, 6000); // 1 minute
+        }, 4000); // 1 minute
     });
 
     // Initial mining rate
