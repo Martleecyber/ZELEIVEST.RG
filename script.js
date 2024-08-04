@@ -46,11 +46,11 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('walletBalance', walletBalance.toString());
             updateWalletBalance();
             alert(`Profit of ₦${profit} has been added to your wallet.`);
-        }, 5000); // 1 minute
+        }, 60000); // 1 minute
     });
 
     // Initial mining rate
-    let miningRate = 1; // Starting rate in Naira
+    let miningRate = 0.00; // Starting rate in Naira
     let increment = 0.01; // Increment rate in Naira per second
 
     // Update mining rate every second
