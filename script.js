@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to update wallet balance on the page
     function updateWalletBalance() {
-        const walletBalance = localStorage.getItem('walletBalance') || '100';
+        const walletBalance = localStorage.getItem('walletBalance') || '500';
         document.getElementById('wallet-balance').textContent = `₦${walletBalance}`;
     }
 
@@ -40,13 +40,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         setTimeout(() => {
             document.body.removeChild(spinner);
-            let walletBalance = parseInt(localStorage.getItem('walletBalance') || '10', 10);
-            const profit = 500; // Example profit value
+            let walletBalance = parseInt(localStorage.getItem('walletBalance') || '500', 10);
+            const profit = 10; // Update profit value to 10
             walletBalance += profit;
             localStorage.setItem('walletBalance', walletBalance.toString());
             updateWalletBalance();
             alert(`Profit of ₦${profit} has been added to your wallet.`);
-        }, 4000); // 1 minute
+        }, 4000); // 4 seconds delay
     });
 
     // Initial mining rate
@@ -58,4 +58,12 @@ document.addEventListener('DOMContentLoaded', function() {
         miningRate += increment;
         document.getElementById('rate').textContent = `₦${miningRate.toFixed(2)} per hour`;
     }, 1000);
+
+    // Store the balance when logging out
+    document.getElementById('logout-link').addEventListener('click', function() {
+        const logoutConfirmation = confirm("Are you sure you want to logout?");
+        if (logoutConfirmation) {
+            window.location.href = 'login.html';
+        }
+    });
 });
